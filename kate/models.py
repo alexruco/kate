@@ -29,9 +29,9 @@ def llama3_model(prompt, config=None):
     # Construct the command to run the LLaMA 3 model using Ollama
     command = ["ollama", "run", "llama3", prompt]
 
-    # If there are configuration options, pass them as JSON, including max_tokens if provided
+    # If there are configuration options, pass them as JSON
     if config:
-        command += ["--config", json.dumps(config)]
+        command.append(json.dumps(config))
 
     # Run the command and capture the output
     result = subprocess.run(command, capture_output=True, text=True)
@@ -39,5 +39,4 @@ def llama3_model(prompt, config=None):
     if result.returncode != 0:
         raise Exception(f"LLaMA 3 model request failed: {result.stderr}")
     
-    # Return the model's response
     return result.stdout.strip()

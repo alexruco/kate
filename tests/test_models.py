@@ -1,36 +1,29 @@
 # tests/test_models.py
 
-import pytest
-from kate.models import openai_model, other_model
+from unittest.mock import patch, MagicMock
+from kate.models import openai_model
 
-def test_openai_model(monkeypatch):
+def test_openai_model():
     """Test the openai_model function."""
 
-    # Mock the requests.post method to simulate an API response
-    class MockResponse:
-        def json(self):
-            return {"choices": [{"message": {"content": "Mocked response from OpenAI"}}]}
+    # Mock the response from OpenAI's API
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [{"message": {"content": "Mocked response from OpenAI"}}]
+    }
 
-    def mock_post(*args, **kwargs):
-        return MockResponse()
+    # Patch the `httpx.Client.request` method used internally by OpenAI's API client
+    with patch("httpx.Client.request", return_value=mock_response) as mock_request:
+        # Call the openai_model function with mock data
+        prompt = "Hello, world!"
+        organization_id = "fake-org-id"
+        api_key = "fake-api-key"
+        model = "gpt-3.5-turbo"
+        response = openai_model(prompt, organization_id, api_key, model)
+        
+        # Check that the response is as expected
+        assert response == "Mocked response from OpenAI"
 
-    monkeypatch.setattr("requests.post", mock_post)
-
-    # Call the openai_model function with mock data
-    api_key = "fake-api-key"
-    prompt = "Hello, world!"
-    response = openai_model(prompt, api_key)
-
-    # Assert that the mocked response is returned
-    assert response["choices"][0]["message"]["content"] == "Mocked response from OpenAI"
-
-def test_other_model():
-    """Test the other_model function."""
-
-    # Call the other_model function with mock data
-    api_key = "fake-api-key"
-    prompt = "Hello, world!"
-    response = other_model(prompt, api_key)
-
-    # Assert that the mocked response is correct
-    assert response["response"] == "This is a response from another model."
+        # Ensure the API call was made
+        mock_request.assert_called_once()

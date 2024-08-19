@@ -1,46 +1,45 @@
 # tests/test_ai_interface.py
 
 import pytest
+from unittest.mock import patch, MagicMock
 from kate.interface import AIInterface
+from kate.main import get_response
 
-@pytest.fixture
-def ai_interface():
-    """Fixture to initialize the AIInterface."""
-    return AIInterface()
+class TestAIInterface:
+    @patch('kate.interface.Config')  # Ensure correct path to Config class
+    def test_initialization(self, mock_config):
+        # Test AIInterface initialization
+        ai_interface = AIInterface()
+        mock_config.assert_called_once_with(None)  # Ensure Config was initialized correctly
 
-def test_send_prompt_openai(monkeypatch, ai_interface):
-    """Test sending a prompt using the OpenAI model."""
+   # tests/test_ai_interface.py
 
-    # Mock the openai_model function to avoid real API calls
-    def mock_openai_model(prompt, org_id, api_key, model, config):
-        return "OpenAI response"
+    @patch('kate.interface.openai_model')  # Correct the path to the function being mocked
+    @patch('kate.interface.Config')
+    def test_send_prompt_openai(self, mock_config, mock_openai_model):
+        # Test sending prompt to OpenAI model
+        mock_config.return_value.get_organization_id.return_value = 'test_org_id'
+        mock_config.return_value.get_api_key.return_value = 'test_api_key'
+        mock_config.return_value.get_config.return_value = None  # Ensure config is None
 
-    # Correctly mock the openai_model function
-    monkeypatch.setattr('kate.interface.openai_model', mock_openai_model)
+        ai_interface = AIInterface()
+        ai_interface.send_prompt('Hello, world!', 'openai', 'gpt-3.5-turbo')
 
-    model_name = "gpt-3.5-turbo"
-    prompt = "Hello, OpenAI!"
+        mock_openai_model.assert_called_once_with('Hello, world!', 'test_org_id', 'test_api_key', 'gpt-3.5-turbo', None)
 
-    # Call the send_prompt method
-    response = ai_interface.send_prompt(prompt, 'openai', model_name)
+    @patch('kate.interface.llama3_model')  # Correct the path to the function being mocked
+    def test_send_prompt_llama3(self, mock_llama3_model):
+        # Test sending prompt to LLaMA 3 model
+        ai_interface = AIInterface()
+        ai_interface.send_prompt('Hello, world!', 'llama3')
+    
+        mock_llama3_model.assert_called_once_with('Hello, world!', None)
 
-    # Check that the response matches the mocked return value
-    assert response == "OpenAI response"
+    def test_send_prompt_invalid_model(self):
+        # Test sending prompt to an unsupported model
+        ai_interface = AIInterface()
+        with pytest.raises(ValueError) as exc_info:
+            ai_interface.send_prompt('Hello, world!', 'invalid_model')
+        
+        assert str(exc_info.value) == "Model invalid_model is not supported."
 
-def test_send_prompt_llamma3(monkeypatch, ai_interface):
-    """Test sending a prompt using the LLaMA 3 model."""
-
-    # Mock the llamma3_model function to avoid real command execution
-    def mock_llamma3_model(prompt, config):
-        return "LLaMA 3 response"
-
-    # Correctly mock the llamma3_model function
-    monkeypatch.setattr('kate.interface.llamma3_model', mock_llamma3_model)
-
-    prompt = "Hello, LLaMA 3!"
-
-    # Call the send_prompt method
-    response = ai_interface.send_prompt(prompt, 'llamma3')
-
-    # Check that the response matches the mocked return value
-    assert response == "LLaMA 3 response"
