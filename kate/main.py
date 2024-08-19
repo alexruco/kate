@@ -32,7 +32,7 @@ def get_response(prompt, ai):
 
 #example usage
 
-prompt = "What is the capital of France?"
-ai = "llama3"
-response = get_response(prompt, ai)
-print(response)
+#prompt = "What is the capital of France?"
+#ai = "llama3"
+#response = get_response(prompt, ai)
+#print(response)
