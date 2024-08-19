@@ -6,5 +6,5 @@ from kate.interface import AIInterface
 ai_interface = AIInterface()
 
 # Send a prompt to LLaMA 3
-response = ai_interface.send_prompt('Hello, world!', 'llamma3',None)
+response = ai_interface.send_prompt('Hello, world!', 'llama3',None)
 print(response)
