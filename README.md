@@ -2,6 +2,8 @@
 
 Welcome to **kate**! This project is designed to provide a seamless interface to interact with various AI models, including OpenAI and LLaMA 3 via Ollama. It centralizes API keys, configurations, and offers a simple function to send prompts to your chosen model and return the response, all in one place.
 
+Named in honor of Kate Crawford, a researcher, writer, composer, producer and academic, who studies the social and political implications of artificial intelligence https://en.wikipedia.org/wiki/Kate_Crawford
+
 ## Features ✨
 
 - **Multi-Model Support**: Easily switch between different AI models like OpenAI and LLaMA 3 by specifying the model name in your prompts. 🎉

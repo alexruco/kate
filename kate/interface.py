@@ -1,7 +1,6 @@
 # kate/interface.py
-
 from kate.config import Config
-from kate.models import openai_model, llamma3_model
+from kate.models import openai_model, llama3_model  # Ensure the correct function is imported
 
 class AIInterface:
     def __init__(self, config_path=None):
@@ -25,7 +24,7 @@ class AIInterface:
             if model is None:
                 raise ValueError("Model must be specified for OpenAI.")
             return openai_model(prompt, organization_id, api_key, model, config)
-        elif model_name == 'llamma3':
-            return llamma3_model(prompt, config)
+        elif model_name == 'llama3':  # Corrected the model name here
+            return llama3_model(prompt, config)  # Ensure the correct function is used here
         else:
             raise ValueError(f"Model {model_name} is not supported.")

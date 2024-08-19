@@ -10,4 +10,5 @@ model_name_version = "gpt-3.5-turbo"
 
 # Send a prompt to OpenAI
 response = ai_interface.send_prompt('Hello, world!', 'openai', model_name_version)
+#print(f"'Hello, world!', 'openai', {model_name_version}")
 print(response)

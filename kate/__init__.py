@@ -14,11 +14,11 @@ Modules:
 
 from .config import Config
 from .interface import AIInterface
-from .models import openai_model, llamma3_model
+from .models import openai_model, llama3_model
 
 __all__ = [
     "Config",
     "AIInterface",
     "openai_model",
-    "llamma3_model"
+    "llama3_model"
 ]

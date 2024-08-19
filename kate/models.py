@@ -23,7 +23,7 @@ def openai_model(prompt, organization_id, api_key, model, config=None):
     return response.choices[0].message.content
 
 
-def llamma3_model(prompt, config=None):
+def llama3_model(prompt, config=None):
     """Interact with the LLaMA 3 model running locally via Ollama."""
     
     # Construct the command to run the LLaMA 3 model using Ollama
