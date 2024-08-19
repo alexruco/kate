@@ -15,10 +15,12 @@ Modules:
 from .config import Config
 from .interface import AIInterface
 from .models import openai_model, llama3_model
+from .main import get_response
 
 __all__ = [
     "Config",
     "AIInterface",
     "openai_model",
-    "llama3_model"
+    "llama3_model",
+    "get_response"
 ]
