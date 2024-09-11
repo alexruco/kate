@@ -2,6 +2,7 @@
 
 import json
 
+
 class Config:
     def __init__(self, config_path=None):
         self.api_keys = {}
@@ -12,6 +13,9 @@ class Config:
         if config_path:
             self.load_config(config_path)
         else:
+            #linux example
+            #self.load_config("/home/ruco/projects/seomaggie/config.json")
+            #max example
             self.load_config("/Users/aimaggie.com/projects/aimaggie.com/config.json")
 
     def load_config(self, config_path):
