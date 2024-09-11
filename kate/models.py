@@ -3,6 +3,11 @@
 from openai import OpenAI
 import subprocess
 import json
+import logging
+
+
+logging.basicConfig(level=logging.INFO)
+
 
 def openai_model(prompt, organization_id, api_key, model, config=None):
     """Interact with OpenAI's API using the updated Python client."""
@@ -39,4 +44,39 @@ def llama3_model(prompt, config=None):
     if result.returncode != 0:
         raise Exception(f"LLaMA 3 model request failed: {result.stderr}")
     
+    return result.stdout.strip()
+
+
+def ollama_model(prompt, model_name="llama3", config=None):
+    """
+    Interact with an Ollama model (LLaMA 3, Phi 3, or Gemma 2) running locally.
+    
+    Parameters:
+    - prompt: The input prompt for the model.
+    - model_name: The name of the model to run (default is "llama3").
+    - config: Optional configuration parameters to pass to the model.
+    
+    Returns:
+    - The model's response.
+    """
+    # Construct the command to run the specified model using Ollama
+    command = ["ollama", "run", model_name, prompt]
+
+    # If there are configuration options, pass them as JSON
+    if config:
+        command.append(json.dumps(config))
+
+    logging.info(f"Running Ollama model: {model_name}")
+
+    # Run the command and capture the output
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, timeout=120)
+        result.check_returncode()  # Raises an error if the command fails
+    except subprocess.TimeoutExpired:
+        logging.error(f"Timeout: Ollama model {model_name} took too long to respond.")
+        raise
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Ollama model {model_name} request failed: {e.stderr}")
+        raise Exception(f"Ollama model {model_name} request failed: {e.stderr}")
+
     return result.stdout.strip()

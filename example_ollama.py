@@ -6,5 +6,9 @@ from kate.interface import AIInterface
 ai_interface = AIInterface()
 
 # Send a prompt to LLaMA 3
-response = ai_interface.send_prompt('Hello, world!', 'llama3',None)
+# Example using the Phi 3 model
+#response = ai_interface.send_prompt(prompt="What is the capital of France?", model_name="phi3")
+
+# Example using the Gemma 2 model
+response = ai_interface.send_prompt(prompt="Tell me a story.", model_name="gemma2")
 print(response)

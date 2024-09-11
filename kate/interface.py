@@ -1,6 +1,6 @@
 # kate/interface.py
-from kate.config import Config
-from kate.models import openai_model, llama3_model  # Ensure the correct function is imported
+from config import Config
+from models import openai_model, ollama_model
 
 class AIInterface:
     def __init__(self, config_path=None):
@@ -24,7 +24,10 @@ class AIInterface:
             if model is None:
                 raise ValueError("Model must be specified for OpenAI.")
             return openai_model(prompt, organization_id, api_key, model, config)
-        elif model_name == 'llama3':  # Corrected the model name here
-            return llama3_model(prompt, config)  # Ensure the correct function is used here
+        
+        # Add support for gemma2:2b and other Ollama models
+        elif model_name in ['llama3', 'phi3', 'gemma2', 'gemma2:2b']:
+            return ollama_model(prompt, model_name=model_name, config=config)  # Pass the full model name
+        
         else:
             raise ValueError(f"Model {model_name} is not supported.")
