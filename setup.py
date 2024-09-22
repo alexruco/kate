@@ -9,7 +9,7 @@ setup(
     url="https://github.com/alexruco/kate",
     packages=find_packages(),
     install_requires=[
-        "openai>=0.10.0"
+        "openai>=0.01.0"
     ],
     python_requires=">=3.7",
     classifiers=[
