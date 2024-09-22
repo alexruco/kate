@@ -11,7 +11,7 @@ setup(
     install_requires=[
         "openai>=0.10.0"
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
