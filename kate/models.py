@@ -2,7 +2,6 @@
 
 from openai import OpenAI
 import subprocess
-import json
 import logging
 
 

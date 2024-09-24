@@ -1,29 +1,25 @@
-# kate/interface.py
-from config import Config
+# Updated interface.py
+from get_env import ORGANIZATION_ID, OPENAI_PROJECT_ID, OPENAI_API_KEY
 from models import openai_model, ollama_model
 
 class AIInterface:
-    def __init__(self, config_path=None):
-        self.config = Config(config_path)
+    def __init__(self):
+        # Directly use environment variables loaded from get_env.py
+        self.organization_id = ORGANIZATION_ID
+        self.openai_project_id = OPENAI_PROJECT_ID
+        self.openai_api_key = OPENAI_API_KEY
 
-    def add_model(self, model_name, project_id=None, api_key=None, config=None):
-        """Add a new model with its Project ID, API key, and optional config."""
-        if project_id:
-            self.config.add_project_id(model_name, project_id)
-        if api_key:
-            self.config.add_api_key(model_name, api_key)
-        if config:
-            self.config.add_config(model_name, config)
+        # Ensure required environment variables are available
+        if not self.organization_id or not self.openai_project_id or not self.openai_api_key:
+            raise EnvironmentError("Missing necessary environment variables: ORGANIZATION_ID, OPENAI_PROJECT_ID, or OPENAI_API_KEY.")
 
     def send_prompt(self, prompt, model_name, model=None, config=None):
         """Send the prompt to the indicated model and return the response."""
         if model_name == 'openai':
-            organization_id = self.config.get_organization_id()
-            api_key = self.config.get_api_key(model_name)
-            config = config or self.config.get_config(model_name)
+            # Use organization ID and API key from environment
             if model is None:
                 raise ValueError("Model must be specified for OpenAI.")
-            return openai_model(prompt, organization_id, api_key, model, config)
+            return openai_model(prompt, self.organization_id, self.openai_api_key, model, config)
         
         # Add support for gemma2:2b and other Ollama models
         elif model_name in ['llama3', 'phi3', 'gemma2', 'gemma2:2b']:
