@@ -6,7 +6,7 @@ def clear_env_vars(*args):
     for var in args:
         os.environ.pop(var, None)
 
-clear_env_vars("ORGANIZATION_ID", "OPENAI_PROJECT_ID", "OPENAI_API_KEY")
+#clear_env_vars("ORGANIZATION_ID", "OPENAI_PROJECT_ID", "OPENAI_API_KEY")
 
 # Explicitly specify the path to the `.env` file if necessary
 env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
