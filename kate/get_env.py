@@ -13,7 +13,7 @@ def clear_env_vars(*args):
         os.environ.pop(var, None)
 
 # Step 1: Clear any previously set environment variables (optional)
-clear_env_vars("ORGANIZATION_ID", "OPENAI_PROJECT_ID", "OPENAI_API_KEY")
+#clear_env_vars("ORGANIZATION_ID", "OPENAI_PROJECT_ID", "OPENAI_API_KEY")
 
 # Step 2: Directly fetch credentials from the environment without loading .env
 ORGANIZATION_ID = os.getenv("ORGANIZATION_ID")
