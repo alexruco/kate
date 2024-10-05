@@ -12,7 +12,6 @@ Modules:
 - models: Contains functions to interact with specific AI models (e.g., OpenAI, LLaMA 3).
 """
 
-from .config import Config
 from .interface import AIInterface
 from .models import openai_model, llama3_model
 from .main import get_response
