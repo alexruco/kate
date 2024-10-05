@@ -1,6 +1,6 @@
-# Updated interface.py
-from get_env import ORGANIZATION_ID, OPENAI_PROJECT_ID, OPENAI_API_KEY
-from models import openai_model, ollama_model
+# interface.py
+from kate.get_env import ORGANIZATION_ID, OPENAI_PROJECT_ID, OPENAI_API_KEY
+from kate.models import openai_model, ollama_model
 
 class AIInterface:
     def __init__(self):

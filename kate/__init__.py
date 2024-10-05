@@ -11,13 +11,17 @@ Modules:
 - interface: Provides a high-level interface for sending prompts to different AI models.
 - models: Contains functions to interact with specific AI models (e.g., OpenAI, LLaMA 3).
 """
+import sys
+from os import path
 
-from .interface import AIInterface
-from .models import openai_model, llama3_model
-from .main import get_response
+# Ensure that the parent directory is in the system path
+sys.path.insert(0, path.abspath(path.join(path.dirname(__file__), '..')))
+
+from kate.interface import AIInterface
+from kate.models import openai_model, llama3_model
+from kate.main import get_response
 
 __all__ = [
-    "Config",
     "AIInterface",
     "openai_model",
     "llama3_model",

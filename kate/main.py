@@ -1,5 +1,5 @@
 # kate/main.py
-from interface import AIInterface
+from kate.interface import AIInterface
 
 def get_response(prompt, ai):
     model = ''
@@ -7,7 +7,7 @@ def get_response(prompt, ai):
     
     # Treating each AI model as distinct, including 'gemma2:2b'
     if ai in ['llama3', 'phi3', 'gemma2', 'gemma2:2b']:  
-        model = ai  # Use the full model name as provided
+        model = ai  # Use the full model name as providedp
     
     elif ai == 'gpt3':
         model = 'openai'
