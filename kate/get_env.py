@@ -18,9 +18,9 @@ OPENAI_PROJECT_ID = os.getenv("OPENAI_PROJECT_ID")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Step 2: Debugging to ensure variables are loaded correctly
-print(f"Kate: Loaded ORGANIZATION_ID: {ORGANIZATION_ID}")
-print(f"Kate: Loaded OPENAI_PROJECT_ID: {OPENAI_PROJECT_ID}")
-print(f"Kate: Loaded OPENAI_API_KEY: {OPENAI_API_KEY}")
+#print(f"Kate: Loaded ORGANIZATION_ID: {ORGANIZATION_ID}")
+#print(f"Kate: Loaded OPENAI_PROJECT_ID: {OPENAI_PROJECT_ID}")
+#print(f"Kate: Loaded OPENAI_API_KEY: {OPENAI_API_KEY}")
 
 # Step 3: Validate environment variables to ensure they're set
 if not ORGANIZATION_ID or not OPENAI_PROJECT_ID or not OPENAI_API_KEY:
