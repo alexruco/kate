@@ -3,6 +3,7 @@
 from openai import OpenAI
 import subprocess
 import logging
+import json
 
 
 logging.basicConfig(level=logging.INFO)
