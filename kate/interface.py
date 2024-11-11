@@ -9,21 +9,23 @@ class AIInterface:
         self.openai_project_id = OPENAI_PROJECT_ID
         self.openai_api_key = OPENAI_API_KEY
 
-        # Ensure required environment variables are available
-        if not self.organization_id or not self.openai_project_id or not self.openai_api_key:
-            raise EnvironmentError("Missing necessary environment variables: ORGANIZATION_ID, OPENAI_PROJECT_ID, or OPENAI_API_KEY.")
-
     def send_prompt(self, prompt, model_name, model=None, config=None):
         """Send the prompt to the indicated model and return the response."""
+        
         if model_name == 'openai':
-            # Use organization ID and API key from environment
+            # Check if OpenAI-specific environment variables are set
+            if not (self.organization_id and self.openai_project_id and self.openai_api_key):
+                raise EnvironmentError(
+                    "Missing necessary environment variables for OpenAI: ORGANIZATION_ID, OPENAI_PROJECT_ID, or OPENAI_API_KEY."
+                )
             if model is None:
                 raise ValueError("Model must be specified for OpenAI.")
+            
             return openai_model(prompt, self.organization_id, self.openai_api_key, model, config)
         
-        # Add support for gemma2:2b and other Ollama models
-        elif model_name in ['llama3', 'phi3', 'gemma2', 'gemma2:2b']:
+        elif model_name in ['llama3', 'phi3', 'gemma2', 'gemma2:2b', 'smollm2:135m', 'qwen2.5:latest', 'mistral-nemo:latest']:
+            # Ollama models do not require OpenAI environment variables
             return ollama_model(prompt, model_name=model_name, config=config)  # Pass the full model name
-        
+
         else:
             raise ValueError(f"Model {model_name} is not supported.")
