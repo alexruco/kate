@@ -35,14 +35,14 @@ def get_response(prompt, ai):
 
 # Example usage
 
-prompt = "What is the capital of France?"
+#prompt = "What is the capital of France?"
 
 # Comment/uncomment the line below to switch between AI models
-ai = "gemma2:2b"  # Option 1: Treat 'gemma2:2b' as a distinct model
+#ai = "gemma2:2b"  # Option 1: Treat 'gemma2:2b' as a distinct model
 #ai = "phi3"      # Option 2: Use 'phi3'
 #ai = "gpt3"      # Option 3: Use GPT-3
 # ai = "gpt4o"     # Option 4: Use GPT-4
 # ai = "gpt4-turbo" # Option 5: Use GPT-4 Turbo
 
-response = get_response(prompt, ai)
-print(response)
+#response = get_response(prompt, ai)
+#print(response)
