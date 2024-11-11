@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="kate",
-    version="0.1.1",
+    version="0.1.2",
     description="An interface to interact with various AI models, including OpenAI and LLaMA 3 via Ollama.",
     author="Alex Ruco",
     author_email="alex@ruco.pt",
