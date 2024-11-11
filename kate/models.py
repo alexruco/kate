@@ -48,7 +48,7 @@ def llama3_model(prompt, config=None):
 
 def ollama_model(prompt, model_name="llama3", config=None):
     """
-    Interact with an Ollama model (LLaMA 3, Phi 3, or Gemma 2) running locally.
+    Interact with an Ollama model (LLaMA 3, Phi 3, mistral-nemo, or Gemma 2) running locally.
     
     Parameters:
     - prompt: The input prompt for the model.

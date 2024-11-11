@@ -6,7 +6,7 @@ def get_response(prompt, ai):
     model_version = None  # Set model_version to None by default for simplification
     
     # Treating each AI model as distinct, including 'gemma2:2b'
-    if ai in ['llama3', 'phi3', 'gemma2', 'gemma2:2b']:  
+    if ai in ['llama3', 'phi3', 'gemma2', 'gemma2:2b','gemma2:latest','smollm2:135m','qwen2.5:latest', 'mistral-nemo:latest']:  
         model = ai  # Use the full model name as providedp
     
     elif ai == 'gpt3':
